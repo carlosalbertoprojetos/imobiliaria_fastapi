@@ -22,6 +22,10 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
 # Define o diretório onde os uploads de imagens serão salvos
 UPLOAD_DIR = "uploads"
 
+# Garante que o diretório de uploads existe
+if not os.path.exists(UPLOAD_DIR):
+    os.makedirs(UPLOAD_DIR)
+
 # Modelo base para um imóvel, usado para entrada e saída de dados
 class ImovelBase(BaseModel):
     titulo: str = Field(..., example="Apartamento 3 quartos")  # Título do imóvel
@@ -53,6 +57,8 @@ def criar_imovel(
     imagem: Optional[UploadFile] = File(None),  # Recebe arquivo de imagem opcional
     token: str = Depends(oauth2_scheme)  # Recebe token de autenticação
 ):
+    print("Recebendo dados:", titulo, descricao, preco, endereco, imagem)
+    print("Token recebido:", token)
     imagem_url = None  # Inicializa URL da imagem
     if imagem:
         # Gera nome único para o arquivo e salva no diretório de uploads
@@ -73,6 +79,7 @@ def criar_imovel(
         dono=token  # Usa o token como identificador do dono
     )
     imoveis_db.append(novo_imovel)  # Adiciona imóvel ao banco de dados em memória
+    print("Imóvel salvo:", novo_imovel)
     return novo_imovel  # Retorna o imóvel criado
 
 # Rota para obter detalhes de um imóvel específico pelo id
