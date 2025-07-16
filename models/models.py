@@ -1,9 +1,10 @@
 from sqlmodel import SQLModel, Field
 from typing import Optional
-from uuid import UUID, uuid4
+from uuid import uuid4
+import os
 
 class Imovel(SQLModel, table=True):
-    id: UUID = Field(default_factory=uuid4, primary_key=True, index=True)
+    id: str = Field(default_factory=lambda: str(uuid4()), primary_key=True, index=True)
     titulo: str
     descricao: Optional[str] = None
     preco: float

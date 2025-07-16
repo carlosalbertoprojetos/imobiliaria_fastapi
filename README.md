@@ -45,11 +45,7 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-Acesse o navegador:
-
-🔗 [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-
----
+```
 
 ## Explicações Técnicas
 
@@ -172,3 +168,5 @@ uvicorn main:app --reload
 ## Pronto!
 
 Você agora tem um sistema imobiliário simples, funcional e com dados reais armazenados localmente via SQLite!
+
+---
